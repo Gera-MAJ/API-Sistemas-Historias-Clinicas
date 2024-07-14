@@ -85,7 +85,7 @@ const edit_user = async(req, res) => {
 
     //Ejecutar la edición
 
-    const usuario_editado = await Usuario.findOneAndUpdate({_id: id_user}, {$set: {user: user_editado.user}}, {new: true})
+    const usuario_editado = await Usuario.findOneAndUpdate({_id: id_user}, user_editado, {new: true})
 
     if(usuario_editado == ""){
         return res.status(404).json({
