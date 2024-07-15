@@ -35,14 +35,14 @@ const crear_pacienteNuevo = (req, res) => {
 
         //Ahora devuelvo el valor
         return res.status(200).json({
-            status: "Success",
+            status: "success",
             mensaje: "Se ha guardado correctamente el paciente",
             paciente
         })
 
     }catch(error){
         return res.status(404).json({
-            status: "Error",
+            status: "error",
             mensaje: "No se han podido validar los datos"
         })
     }
@@ -61,7 +61,7 @@ const listar_pacientes = async (req, res) =>{
         })
     }else{
         return res.status(200).send({
-            status: "succes",
+            status: "success",
             consulta
         })
     }
@@ -82,7 +82,7 @@ const encontrar_paciente = async (req, res) =>{
     }else{
         
         return res.status(200).send({
-            status: "succes",
+            status: "success",
             mensaje: "Paciente encontrado",
             consulta
         })
@@ -106,7 +106,7 @@ const borrar_paciente = async (req, res) =>{
             
             if(paciente_para_borrar != null && paciente_para_borrar != ""){
                 return res.status(200).json({
-                    status: "succes",
+                    status: "success",
                     mensaje: "Se ha borrado el paciente",
                     paciente_para_borrar
                 })
@@ -165,7 +165,7 @@ const editar_paciente = async(req, res) =>{
 
             //Devolver una respuesta
             return res.status(200).json({
-                status: "succes",
+                status: "success",
                 mensaje: "entraste en editar",
                 paciente_editado
             })
@@ -236,7 +236,7 @@ const subir_imagen = async(req, res) =>{
 
         //Devolver una respuesta
         return res.status(200).json({
-            status: "succes",
+            status: "success",
             mensaje: "entraste en editar",
             paciente_editado,
             fichero: req.file
