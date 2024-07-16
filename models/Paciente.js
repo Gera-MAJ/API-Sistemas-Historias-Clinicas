@@ -77,16 +77,12 @@ const PacienteSchema = Schema({
     },
     Consulta:[ 
         {
-            id_Consulta: {
-                type: Number,
-                require: false
-            },
-            Fecha: {
+            fecha: {
                 type: Date,
                 require: false,
                 default: Date.now
             },
-            Descripcion: {
+            descripcion: {
                 type: String,
                 require: false
             }
@@ -137,10 +133,6 @@ const PacienteSchema = Schema({
         {
             fecha: {
                 type: Date,
-                require: false
-            },
-            id_Fum: {
-                type: Number,
                 require: false
             }
         }

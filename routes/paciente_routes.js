@@ -41,4 +41,12 @@ router.get("/imagen/:fichero", Paciente_controller.mostrar_imagen)
 //Ruta que busca un paciente con el nombre, apellido o dni
 router.get("/buscar/:busqueda", Paciente_controller.buscador)
 
+//Acá van las rutas para la consulta y el FUM
+router.post("/paciente/agregar-consulta/:_id", Paciente_controller.agregar_consulta)
+router.put("/paciente/editar-consulta/:_id/:_idConsulta", Paciente_controller.editar_consulta)
+router.get("/paciente/consultas/:_id", Paciente_controller.listar_consultas)
+router.post("/paciente/agregar-fum/:_id", Paciente_controller.agregar_fum)
+router.put("/paciente/editar-fum/:_id/:_idFum", Paciente_controller.editar_fum)
+router.get("/paciente/fums/:_id", Paciente_controller.listar_fums)
+
 module.exports = router
