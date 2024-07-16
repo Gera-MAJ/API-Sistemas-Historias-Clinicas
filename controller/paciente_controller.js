@@ -387,6 +387,54 @@ const editar_consulta = async (req, res) => {
   }
 };
 
+const borrar_consulta = async (req, res) => {
+  try {
+    //Tomo los datos del paciente
+    const id_paciente = req.params._id;
+    const id_consulta = req.params._idConsulta;
+
+    //Valido los datos que me llegan
+
+    const validar_id = !validator.isEmpty(id_paciente);
+    const validar_idConsulta = !validator.isEmpty(id_consulta);
+
+    console.log(id_paciente, id_consulta);
+
+    if (validar_id == false || validar_idConsulta == false) {
+      return res.status(404).json({
+        status: "error",
+        mensaje: "Los datos no son válidos",
+      });
+    } else {
+      const consulta_borrada = await paciente_model.findOneAndUpdate(
+        { _id: id_paciente },
+        { $pull: { Consulta: { _id: id_consulta } } },
+        {new: true}
+      );
+
+      if (!consulta_borrada) {
+        return res.status(404).json({
+          status: "error",
+          mensaje: "No se ha encontrado la consulta",
+        });
+      } else {
+        return res.status(200).json({
+          status: "success",
+          mensaje: "La consulta fue borrada con éxito",
+          id_paciente,
+          consulta_borrada,
+        });
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      status: "error",
+      mensaje: "Error en el servidor",
+    });
+  }
+};
+
 const listar_consultas = async (req, res) => {
   const id_paciente = req.params._id;
 
@@ -397,15 +445,15 @@ const listar_consultas = async (req, res) => {
       status: "error",
       mensaje: "Los datos no son válidos",
     });
-  }else{
+  } else {
     const consultas = await paciente_model
-    .findById(id_paciente)
-    .select("Consulta");
+      .findById(id_paciente)
+      .select("Consulta");
 
     return res.status(200).send({
-        status: "success",
-        consultas
-      });
+      status: "success",
+      consultas,
+    });
   }
 };
 
@@ -481,8 +529,8 @@ const editar_fum = async (req, res) => {
   }
 };
 
-const listar_fums = async(req, res) => {
-    const id_paciente = req.params._id;
+const listar_fums = async (req, res) => {
+  const id_paciente = req.params._id;
 
   const validar_id = !validator.isEmpty(id_paciente);
 
@@ -491,17 +539,63 @@ const listar_fums = async(req, res) => {
       status: "error",
       mensaje: "Los datos no son válidos",
     });
-  }else{
-    const fums = await paciente_model
-    .findById(id_paciente)
-    .select("FUM");
+  } else {
+    const fums = await paciente_model.findById(id_paciente).select("FUM");
 
     return res.status(200).send({
-        status: "success",
-        fums
-      });
+      status: "success",
+      fums,
+    });
   }
-}
+};
+
+const borrar_fum = async (req, res) => {
+    try {
+      //Tomo los datos del paciente
+      const id_paciente = req.params._id;
+      const id_fum = req.params._idFum;
+  
+      //Valido los datos que me llegan
+  
+      const validar_id = !validator.isEmpty(id_paciente);
+      const validar_idFum = !validator.isEmpty(id_fum);
+  
+      console.log(id_paciente, id_fum);
+  
+      if (validar_id == false || validar_idFum == false) {
+        return res.status(404).json({
+          status: "error",
+          mensaje: "Los datos no son válidos",
+        });
+      } else {
+        const fum_borrado = await paciente_model.findOneAndUpdate(
+          { _id: id_paciente },
+          { $pull: { FUM: { _id: id_fum } } },
+          {new: true}
+        );
+  
+        if (!fum_borrado) {
+          return res.status(404).json({
+            status: "error",
+            mensaje: "No se ha encontrado la FUM",
+          });
+        } else {
+          return res.status(200).json({
+            status: "success",
+            mensaje: "La FUM fue borrada con éxito",
+            id_paciente,
+            fum_borrado,
+          });
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        status: "error",
+        mensaje: "Error en el servidor",
+      });
+    }
+  };
 
 module.exports = {
   probando,
@@ -518,5 +612,7 @@ module.exports = {
   editar_consulta,
   editar_fum,
   listar_consultas,
-  listar_fums
+  listar_fums,
+  borrar_consulta,
+  borrar_fum
 };
