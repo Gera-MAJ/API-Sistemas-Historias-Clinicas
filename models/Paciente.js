@@ -224,4 +224,6 @@ const PacienteSchema = Schema({
 })
 
 //Cuando mando el model, tengo en la primera parte, como debo llamar a este modelo, luego de donde saco el modelo y en el tercera parte, como es el nombre que lo va a identificar en la base de datos
+
+
 module.exports = model("Paciente", PacienteSchema, "pacientes")

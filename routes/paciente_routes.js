@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const multer = require("multer")
 const Paciente_controller = require("../controller/paciente_controller")
+const Paciente = require('../models/Paciente'); //by Leti
 
 
 //Crear el almacenamiento de imágenes con multer
@@ -23,11 +24,12 @@ router.get("/ruta-de-prueba", Paciente_controller.probando)
 router.post("/crear-paciente-nuevo", Paciente_controller.crear_pacienteNuevo)
 
 //rutas para recibir datos
+router.get("/obtener-paciente", Paciente_controller.listar_pacientes)
 router.get("/pacientes", Paciente_controller.listar_pacientes)
 router.get("/encontrar-paciente/:dni", Paciente_controller.encontrar_paciente)//Cuando colocas los : puntos, estás diciendo que ese parametro es obligatorio, si no querés hacerlo obligatorio, se tiene que colocar un ? luego del nombre del parámetro
 
 //Rutas para borrar
-router.delete("/borrar-paciente/:dni", Paciente_controller.borrar_paciente)
+router.delete("/eliminar-paciente/:dni", Paciente_controller.borrar_paciente)
 
 //Ruta para editar
 router.put("/editar-paciente/:_id", Paciente_controller.editar_paciente)
@@ -53,4 +55,30 @@ router.put("/paciente/editar-fum/:_id/fum/:_idFum", Paciente_controller.editar_f
 router.get("/paciente/fums/:_id", Paciente_controller.listar_fums)
 router.delete("/paciente/borrar-fum/:_id/fum/:_idFum", Paciente_controller.borrar_fum)
 
-module.exports = router
+// Ruta para obtener todos los pacientes (leti)
+router.get('/obtener-pacientes', async (req, res) => {
+    try {
+      const pacientes = await Paciente.find();
+      res.json(pacientes);
+    } catch (err) {
+      res.status(400).json({ message: 'Error al obtener pacientes', error: err.message });
+    }
+  });
+
+
+// Ruta para eliminar un paciente por dni (leti)
+router.delete('/eliminar-paciente/:dni', async (req, res) => {
+  try {
+    const { dni } = req.params;
+    const resultado = await Paciente.findByDniAndDelete(dni);
+    if (!resultado) {
+      return res.status(404).json({ message: 'Paciente no encontrado' });
+    }
+    res.json({ message: 'Paciente eliminado correctamente' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al eliminar el paciente', error: error.message });
+  }
+});
+  
+  module.exports = router;
+

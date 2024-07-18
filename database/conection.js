@@ -3,6 +3,7 @@ const express = require("express")
 const cors = require("cors")
 
 
+
 //Crear un servidor de NODE
 const app = express()
 
@@ -50,8 +51,12 @@ const route_login = require("../routes/login_routes")
 //Cargo la ruta
 app.use("/api", route_paciente)
 
+
+
 //Rutas del login
 app.use("/login", route_login)
+
+
 
 //Creo unas rutas de prueba
 app.get('/', (req, res) =>{
