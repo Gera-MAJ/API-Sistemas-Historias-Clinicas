@@ -4,6 +4,7 @@ const cors = require("cors")
 
 
 
+
 //Crear un servidor de NODE
 const app = express()
 
@@ -54,7 +55,7 @@ app.use("/api", route_paciente)
 
 
 //Rutas del login
-app.use("/login", route_login)
+app.use("/api", route_login); // Corregido: Ahora la ruta de login está bajo /api (leti)
 
 
 
