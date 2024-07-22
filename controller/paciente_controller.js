@@ -382,7 +382,7 @@ const editar_consulta = async (req, res) => {
       status: "success",
       mensaje: "Se ha agregado una nueva consulta",
       id_paciente,
-      paciente_edit,
+      paciente_edit
     });
   }
 };
