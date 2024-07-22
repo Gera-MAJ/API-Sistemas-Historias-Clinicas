@@ -542,8 +542,11 @@ const listar_fums = async (req, res) => {
       mensaje: "Los datos no son válidos",
     });
   } else {
-    const fums = await paciente_model.findById(id_paciente).select("FUM");
+    const paciente = await paciente_model
+    .findById(id_paciente)
+    .select("FUM");
 
+    const fums = paciente.FUM.sort((a, b) => b.fecha - a.fecha)
     return res.status(200).send({
       status: "success",
       fums,
