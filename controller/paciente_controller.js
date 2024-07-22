@@ -449,7 +449,7 @@ const listar_consultas = async (req, res) => {
     const paciente = await paciente_model
       .findById(id_paciente)
       .select("Consulta");
-      
+    //Esta es la forma para que se ordener por fecha, de mas nueva a mas vieja  
     const consultas = paciente.Consulta.sort((a, b) => b.fecha - a.fecha)
     
     return res.status(200).send({
