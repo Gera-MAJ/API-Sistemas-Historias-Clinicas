@@ -446,10 +446,12 @@ const listar_consultas = async (req, res) => {
       mensaje: "Los datos no son válidos",
     });
   } else {
-    const consultas = await paciente_model
+    const paciente = await paciente_model
       .findById(id_paciente)
       .select("Consulta");
-
+      
+    const consultas = paciente.Consulta.sort((a, b) => b.fecha - a.fecha)
+    
     return res.status(200).send({
       status: "success",
       consultas,
