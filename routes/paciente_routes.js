@@ -25,6 +25,7 @@ router.post("/crear-paciente-nuevo", Paciente_controller.crear_pacienteNuevo)
 //rutas para recibir datos
 router.get("/obtener-pacientes", Paciente_controller.listar_pacientes)
 router.get("/encontrar-paciente/:dni", Paciente_controller.encontrar_paciente)//Cuando colocas los : puntos, estás diciendo que ese parametro es obligatorio, si no querés hacerlo obligatorio, se tiene que colocar un ? luego del nombre del parámetro
+router.get("/get_paciente/:_id", Paciente_controller.encontrar_paciente_id)
 
 //Rutas para borrar
 router.delete("/eliminar-paciente/:dni", Paciente_controller.borrar_paciente)

@@ -85,6 +85,25 @@ const encontrar_paciente = async (req, res) => {
   }
 };
 
+const encontrar_paciente_id = async(req, res) => {
+  const id_paciente = req.params._id
+
+  const paciente = await paciente_model.findOne({_id: id_paciente})
+
+  if ((id_paciente == undefined && paciente == "") || paciente == null) {
+    return res.status(404).send({
+      status: "error",
+      mensaje: "No se encontró el paciente",
+    });
+  } else {
+    return res.status(200).send({
+      status: "success",
+      mensaje: "Paciente encontrado",
+      paciente,
+    });
+  }
+}
+
 const borrar_paciente = async (req, res) => {
   const dni_paciente = req.params.dni;
 
@@ -619,5 +638,6 @@ module.exports = {
   listar_consultas,
   listar_fums,
   borrar_consulta,
-  borrar_fum
+  borrar_fum, 
+  encontrar_paciente_id
 };
