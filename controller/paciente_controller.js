@@ -154,15 +154,11 @@ const editar_paciente = async (req, res) => {
   try {
     const validar_id = !validator.isEmpty(id_paciente);
 
-    const validar_parametros =
-      !validator.isEmpty(parametros_para_editar.Nombres) &&
-      !validator.isEmpty(parametros_para_editar.Apellidos) &&
-      !validator.isEmpty(parametros_para_editar.Edad) &&
-      !validator.isEmpty(parametros_para_editar.DNI); //Recordar que se tiene que pasar cada campo del array de objetos, no puede determinar de todo el objeto completo
+    //Recordar que se tiene que pasar cada campo del array de objetos, no puede determinar de todo el objeto completo
 
-    console.log(validar_parametros, validar_id);
+    console.log( validar_id);
 
-    if (validar_id == false || validar_parametros == false) {
+    if (validar_id == false) {
       return res.status(400).json({
         status: "error",
         mensaje: "No se pudo validar el dato",
