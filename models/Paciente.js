@@ -94,7 +94,7 @@ const PacienteSchema = Schema({
         require: false,
         default: ""
     },
-    Antecedentes_Perspnales:{
+    Antecedentes_Personales:{
         type: String,
         require: false,
         default: ""
