@@ -463,13 +463,19 @@ const listar_consultas = async (req, res) => {
   } else {
     const paciente = await paciente_model
       .findById(id_paciente)
-      .select("Consulta");
+      .select("Consulta")
+
     //Esta es la forma para que se ordener por fecha, de mas nueva a mas vieja  
-    const consultas = paciente.Consulta.sort((a, b) => b.fecha - a.fecha)
+    const consultas = await paciente.Consulta
+                      .sort((a, b) => b.fecha - a.fecha)
+
+    //Para establecer el límite, se usa slice en la respuesta del sort
+    const limite = 5
+    const consultasLimitadas = consultas.slice(0, limite)
     
     return res.status(200).send({
       status: "success",
-      consultas,
+      consultas: consultasLimitadas,
     });
   }
 };
@@ -562,9 +568,14 @@ const listar_fums = async (req, res) => {
     .select("FUM");
 
     const fums = paciente.FUM.sort((a, b) => b.fecha - a.fecha)
+
+    //Para agregar límite de fums, uso slice luego del sort. 
+    const limite = 3;
+    const fums_limitadas = fums.slice(0, limite)
+
     return res.status(200).send({
       status: "success",
-      fums,
+      fums: fums_limitadas,
     });
   }
 };
