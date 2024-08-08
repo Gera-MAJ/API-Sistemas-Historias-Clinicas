@@ -25,10 +25,13 @@ app.listen(puerto, ()=> {
 const conexion = async() => {
     try{
         //colocar await para esperar la conexión con mongo db
-        await moongose.connect("mongodb://127.0.0.1:27017/historias_clinicas")
+        // await moongose.connect("mongodb://127.0.0.1:27017/historias_clinicas")
 
-        console.log("Conectado correctamente a la base de datos")
+        //Conexión a Mongo DB atlas. Colocar contraseña y la base de datos a la que se quiere acceder
+        await moongose.connect("mongodb+srv://jatipg:DBatlas*85*acceso@cluster0.pye64.mongodb.net/historias_clinicas?retryWrites=true&w=majority&appName=Cluster0")
 
+        .then(() => console.log('Connected to MongoDB Atlas'))
+        
     }catch(error){
 
         console.log(error)
