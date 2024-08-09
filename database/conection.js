@@ -23,15 +23,15 @@ const conexion = async() => {
         //colocar await para esperar la conexión con mongo db pero del local host
         // await moongose.connect("mongodb://127.0.0.1:27017/historias_clinicas")
 
+        // .then(() => console.log('Connectado a la base de datos en localhost'))
+
         //Conexión a Mongo DB atlas. Colocar contraseña y la base de datos a la que se quiere acceder
-        await moongose.connect("mongodb+srv://jatipg:DBatlas*85*acceso@cluster0.pye64.mongodb.net/historias_clinicas?retryWrites=true&w=majority&appName=Cluster0" ,
-            { useNewUrlParser: true,
-            useUnifiedTopology: true,})
+        await moongose.connect("mongodb+srv://jatipg:DBatlas*85*acceso@cluster0.pye64.mongodb.net/historias_clinicas?retryWrites=true&w=majority&appName=Cluster0")
+
+            .then(() => console.log('Connectado a la base de datos web'))
 
         //Otra forma de intentar acceder a la base de datos de mongoDB atlas
         // await moongose.connect("mongodb+srv://jatipg:DBatlas*85*acceso@cluster0.pye64.mongodb.net/historias_clinicas")
-
-        .then(() => console.log('Connectado a la base de datos en localhost'))
 
         //Crear servidor y escuchar peticiones http
         app.listen(puerto, ()=> {
