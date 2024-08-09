@@ -8,6 +8,23 @@ const login = (req, res) =>{
     })
 }
 
+const listar_users = async (req, res) => {
+    //Esto es algo que se ve en la parte de moongose, como sacar todos los datos. Esta en la parte de https://mongoosejs.com/docs/api/model.html#Model.find()
+    const users = await Usuario.find({}); 
+  
+    if (users == "") {
+      return res.status(404).send({
+        status: "error",
+        mensaje: "No se encontraron pacientes",
+      });
+    } else {
+      return res.status(200).send({
+        status: "success",
+        users,
+      });
+    }
+  };
+
 const guardar_usuario = (req, res) =>{
 
     //Tomar todos los parámetros que se tienen que guardar
@@ -106,5 +123,6 @@ const edit_user = async(req, res) => {
 module.exports = {
     login,
     guardar_usuario,
-    edit_user
+    edit_user,
+    listar_users
 }
