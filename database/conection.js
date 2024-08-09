@@ -24,7 +24,8 @@ app.listen(puerto, ()=> {
 //Acá creo la conexión a la base de datos usando moongose
 const conexion = async() => {
     try{
-        //colocar await para esperar la conexión con mongo db
+        //colocar await para esperar la conexión con mongo db pero del local host
+
         // await moongose.connect("mongodb://127.0.0.1:27017/historias_clinicas")
 
         //Conexión a Mongo DB atlas. Colocar contraseña y la base de datos a la que se quiere acceder
