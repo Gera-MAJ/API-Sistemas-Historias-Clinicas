@@ -7,7 +7,7 @@ const cors = require("cors")
 const app = express()
 
 //Creo el puerto de la escucha
-const puerto = 3900
+const puerto = process.env.PORT || 3900;
 
 //Configurar el cors
 app.use(cors())
@@ -16,10 +16,6 @@ app.use(cors())
 app.use(express.json()) //Esto convierte el body a json
 app.use(express.urlencoded({extended: true}))//urlencoded es para el tipo de dato que mandan los form de html, con el extended hago que interprete los datos
 
-//Crear servidor y escuchar peticiones http
-app.listen(puerto, ()=> {
-    console.log("El servidor está corriendo correctamente en el puerto: " + puerto);
-})
 
 //Acá creo la conexión a la base de datos usando moongose
 const conexion = async() => {
@@ -28,18 +24,23 @@ const conexion = async() => {
         // await moongose.connect("mongodb://127.0.0.1:27017/historias_clinicas")
 
         //Conexión a Mongo DB atlas. Colocar contraseña y la base de datos a la que se quiere acceder
-        // await moongose.connect("mongodb+srv://jatipg:DBatlas*85*acceso@cluster0.pye64.mongodb.net/historias_clinicas?retryWrites=true&w=majority&appName=Cluster0")
+        await moongose.connect("mongodb+srv://jatipg:DBatlas*85*acceso@cluster0.pye64.mongodb.net/historias_clinicas?retryWrites=true&w=majority&appName=Cluster0" ,
+            { useNewUrlParser: true,
+            useUnifiedTopology: true,})
 
         //Otra forma de intentar acceder a la base de datos de mongoDB atlas
-        await moongose.connect("mongodb+srv://jatipg:DBatlas*85*acceso@cluster0.pye64.mongodb.net/historias_clinicas")
+        // await moongose.connect("mongodb+srv://jatipg:DBatlas*85*acceso@cluster0.pye64.mongodb.net/historias_clinicas")
 
         .then(() => console.log('Connectado a la base de datos en localhost'))
-        
-    }catch(error){
 
+        //Crear servidor y escuchar peticiones http
+        app.listen(puerto, ()=> {
+            console.log("El servidor está corriendo correctamente en el puerto: " + puerto);
+        })
+    
+    }catch(error){
         console.log(error)
-        throw new Error("No se ha podido conectar a la base de datos")
-        
+        throw new Error("No se ha podido conectar a la base de datos")   
     }
 }
 
