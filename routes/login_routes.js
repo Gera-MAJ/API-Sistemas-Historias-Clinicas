@@ -3,8 +3,8 @@ const router = Router()
 
 const login_controller = require("../controller/login_controller")
 
-// router.get("/users", login_controller.login)
-router.get("/users", login_controller.listar_users)
+// ruta para verificar el login
+router.get("/accesso/:user/:password", login_controller.accesso_users)
 
 router.post("/post_user", login_controller.guardar_usuario)
 

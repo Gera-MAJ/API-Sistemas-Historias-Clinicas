@@ -8,14 +8,16 @@ const login = (req, res) =>{
     })
 }
 
-const listar_users = async (req, res) => {
-    //Esto es algo que se ve en la parte de moongose, como sacar todos los datos. Esta en la parte de https://mongoosejs.com/docs/api/model.html#Model.find()
-    const users = await Usuario.find({}); 
+const accesso_users = async (req, res) => {
+    const datosUser = req.params.user
+    const datosPass = req.params.password
+
+    const users = await Usuario.findOne({user: datosUser, password: datosPass}); 
   
     if (users == "") {
       return res.status(404).send({
         status: "error",
-        mensaje: "No se encontraron pacientes",
+        mensaje: "El usuario no existe",
       });
     } else {
       return res.status(200).send({
@@ -124,5 +126,5 @@ module.exports = {
     login,
     guardar_usuario,
     edit_user,
-    listar_users
+    accesso_users
 }
