@@ -1,0 +1,4 @@
+GET http://localhost:3900/login/acceso/adm/1234
+
+###
+GET http://localhost:3900/api/obtener-pacientes

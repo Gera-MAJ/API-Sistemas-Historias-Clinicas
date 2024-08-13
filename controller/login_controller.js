@@ -8,22 +8,25 @@ const login = (req, res) =>{
     })
 }
 
-const accesso_users = async (req, res) => {
+const acceso_users = async (req, res) => {
     const datosUser = req.params.user
     const datosPass = req.params.password
 
+    let validar_user = !validator.isEmpty(datosUser)
+    let validar_pass = !validator.isEmpty(datosPass)
+
     const users = await Usuario.findOne({user: datosUser, password: datosPass}); 
   
-    if (users == "") {
-      return res.status(404).send({
-        status: "error",
-        mensaje: "El usuario no existe",
-      });
+    if (users != null) {
+        return res.status(200).send({
+            status: "success",
+            users,
+          });
     } else {
-      return res.status(200).send({
-        status: "success",
-        users,
-      });
+        return res.status(404).send({
+            status: "error",
+            mensaje: "El usuario no existe",
+          });
     }
   };
 
@@ -126,5 +129,5 @@ module.exports = {
     login,
     guardar_usuario,
     edit_user,
-    accesso_users
+    acceso_users
 }
